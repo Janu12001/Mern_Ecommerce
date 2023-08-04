@@ -25,7 +25,7 @@ exports.fetchAllProducts = async (req, res) => {
 
   if (req.query.brand) {
     query = query.find({ brand: req.query.brand });
-    totalProductsQuery = totalProductsQuery.findIndex({
+    totalProductsQuery = totalProductsQuery.find({
       brand: req.query.brand,
     });
   }
@@ -46,6 +46,32 @@ exports.fetchAllProducts = async (req, res) => {
     const docs = await query.exec();
     res.set("X-Total-Count", totalDocs);
     res.status(200).json(docs);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+//fetchproductById api
+exports.fetchProductById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.findById(id);
+    res.status(201).json(product);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+//updateProduct api
+exports.updateProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(201).json(product);
   } catch (err) {
     res.status(400).json(err);
   }
