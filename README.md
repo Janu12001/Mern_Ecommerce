@@ -28,7 +28,10 @@
 
 
 
-  ##Features 
+
+
+
+  #FEATURES
 - Basic E-commerce Features- Product lists, Product Details, Cart, Checkout 
 - Secure Card Payments / Cash payments
 - Admin Panel - Add/Edit Orders. Add/Edit Products
