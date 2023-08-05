@@ -1,10 +1,10 @@
 ﻿# Ecommerce-website-Backend
 
 #TECHNOLOGIES USED
-- React 18 with Tailwind CSS
+- React 18 with Tailwind CSS                                                                           
 - Redux Toolkit with Async Thunk
 - React Router v6
-- JSON-server for front-end testing
+- JSON-server for front-end testing                                                         
 - MongoDB for Database
 - Mongoose v7 as ODM
 - REST API using Express
@@ -17,7 +17,18 @@
 
 
 
-  Features :
+
+
+
+
+
+
+
+
+
+
+
+  ##Features :
 - Basic E-commerce Features- Product lists, Product Details, Cart, Checkout 
 - Secure Card Payments / Cash payments
 - Admin Panel - Add/Edit Orders. Add/Edit Products
@@ -25,3 +36,10 @@
 - Authentication with Passport JS strategies
 - Order Emails, Reset Password Emails
 - User Profile and user orders
+
+
+
+
+
+
+
