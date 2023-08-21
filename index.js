@@ -24,6 +24,7 @@ const { User } = require("./model/User");
 const { sanitizeUser, cookieExtractor } = require("./services/common");
 const { isAuth } = require("./services/common");
 const path = require("path");
+const { Order } = require("./model/Order");
 // Webhook
 
 // TODO: we will capture actual order after deploying out server live on public URL
@@ -33,7 +34,7 @@ const endpointSecret = process.env.ENDPOINTSECRET;
 server.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  (request, response) => {
+  async (request, response) => {
     const sig = request.headers["stripe-signature"];
 
     let event;
@@ -49,7 +50,12 @@ server.post(
     switch (event.type) {
       case "payment_intent.succeeded":
         const paymentIntentSucceeded = event.data.object;
-        console.log({ paymentIntentSucceeded });
+        const order = await Order.findById(
+          paymentIntentSucceeded.metadata.orderId
+        );
+        order.paymentStatus = "received";
+        await order.save();
+
         // Then define and call a function to handle the event payment_intent.succeeded
         break;
       // ... handle other event types
@@ -96,7 +102,9 @@ server.use("/auth", authRouter.router);
 server.use("/users", isAuth(), userRouter.router);
 server.use("/cart", isAuth(), cartRouter.router);
 server.use("/orders", isAuth(), ordersRouter.router);
-
+server.get("*", (req, res) =>
+  res.sendFile(path.resolve("build", "index.html"))
+);
 //passport stragtegies
 passport.use(
   "local",
@@ -175,7 +183,7 @@ passport.deserializeUser(function (user, cb) {
 const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
 
 server.post("/create-payment-intent", async (req, res) => {
-  const { totalAmount } = req.body;
+  const { totalAmount, orderId } = req.body;
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
@@ -183,6 +191,9 @@ server.post("/create-payment-intent", async (req, res) => {
     currency: "inr",
     automatic_payment_methods: {
       enabled: true,
+    },
+    metadata: {
+      orderId,
     },
   });
 
