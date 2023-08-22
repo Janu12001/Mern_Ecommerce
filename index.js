@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-
 const server = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -30,7 +29,7 @@ const { env } = require("process");
 
 // TODO: we will capture actual order after deploying out server live on public URL
 
-const endpointSecret = process.env.ENDPOINTSECRET;
+const endpointSecret = process.env.ENDPOINT_SECRET;
 
 server.post(
   "/webhook",
@@ -85,9 +84,8 @@ server.use(
     saveUninitialized: false, // don't create session until something stored
   })
 );
-
-server.use(cookieParser());
 server.use(passport.authenticate("session"));
+server.use(cookieParser());
 server.use(
   cors({
     exposedHeaders: ["X-Total-Count"],
