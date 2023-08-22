@@ -1,7 +1,7 @@
 //create user api
 const { User } = require("../model/User");
 const crypto = require("crypto");
-const { sanitizeUser } = require("../services/common");
+const { sanitizeUser, sendMail } = require("../services/common");
 const jwt = require("jsonwebtoken");
 //create user api
 exports.createUser = async (req, res) => {
@@ -55,7 +55,8 @@ exports.loginUser = async (req, res) => {
 exports.logout = async (req, res) => {
   res
     .cookie("jwt", null, {
-      expires: new Date(Date.now()),
+      // expires: new Date(Date.now()),
+      maxAge: 0,
       httpOnly: true,
     })
     .sendStatus(200);
@@ -67,5 +68,18 @@ exports.checkAuth = async (req, res) => {
     res.json(req.user);
   } else {
     res.sendStatus(401);
+  }
+};
+
+//reset password api
+exports.resetPasswordRequest = async (req, res) => {
+  const resetPage = "http://localhost:3000/reset-password";
+  const subject = "reset password for e-commerce";
+  const html = `<p>Click <a href = '${resetPage}'>here</a> to Reset Password</p>`;
+  if (req.body.email) {
+    const response = await sendMail({ to: req.body.email, subject, html });
+    res.json(response);
+  } else {
+    res.sendStatus(400);
   }
 };

@@ -11,6 +11,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 const { createProduct } = require("./controller/Product");
 const productsRouter = require("./routes/Products");
 const categoriesRouter = require("./routes/Categories");
@@ -24,7 +25,7 @@ const { sanitizeUser, cookieExtractor } = require("./services/common");
 const { isAuth } = require("./services/common");
 const path = require("path");
 const { Order } = require("./model/Order");
-const { env } = require("process");
+
 // Webhook
 
 // TODO: we will capture actual order after deploying out server live on public URL
@@ -101,6 +102,7 @@ server.use("/auth", authRouter.router);
 server.use("/users", isAuth(), userRouter.router);
 server.use("/cart", isAuth(), cartRouter.router);
 server.use("/orders", isAuth(), ordersRouter.router);
+
 server.get("*", (req, res) =>
   res.sendFile(path.resolve("build", "index.html"))
 );
