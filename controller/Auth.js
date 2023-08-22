@@ -23,7 +23,7 @@ exports.createUser = async (req, res) => {
           } else {
             const token = jwt.sign(
               sanitizeUser(doc),
-              process.env.JWTSECRET_KEY
+              process.env.JWT_SECRET_KEY
             );
             res
               .cookie("jwt", token, {
