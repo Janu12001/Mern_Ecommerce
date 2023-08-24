@@ -89,7 +89,8 @@ server.use(passport.authenticate("session"));
 server.use(cookieParser());
 server.use(
   cors({
-    exposedHeaders: ["X-Total-Count"],
+    // exposedHeaders: ["X-Total-Count"],
+    origin: "https://mern-ecommerce-b6uc.onrender.com",
   })
 );
 // server.use(express.raw({ type: "application/json" }));
