@@ -84,7 +84,7 @@ exports.resetPasswordRequest = async (req, res) => {
 
     // Also set token in email
     const resetPageLink =
-      "https://mern-ecommerce-kohl-six.vercel.app/reset-password?token=" +
+      "https://frail-sunbonnet-dove.cyclic.cloud/reset-password?token=" +
       token +
       "&email=" +
       email;
