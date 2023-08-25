@@ -90,7 +90,6 @@ server.use(cookieParser());
 server.use(
   cors({
     exposedHeaders: ["X-Total-Count"],
-    origin: "https://mern-ecommerce-b6uc.onrender.com",
   })
 );
 // server.use(express.raw({ type: "application/json" }));
