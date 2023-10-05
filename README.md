@@ -11,7 +11,7 @@
 - Authentication using Passport JS
 - API Authentication using Passport JWT
 - MongoDB Atlas cloud database
-- Vercel Server deployment
+- Vercel Server Deployment
 - Email using Nodemailer - using GMail SMTP system
 - Payments using Stripe - PaymentIntent based custom flow
 
