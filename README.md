@@ -3,7 +3,7 @@
 #TECHNOLOGIES USED
 - React 18 with Tailwind CSS                                                                           
 - Redux Toolkit with Async Thunk
-- React Router v6
+- React Router V6
 - JSON-server for front-end testing                                                         
 - MongoDB for Database
 - Mongoose v7 as ODM
